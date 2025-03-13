@@ -9,6 +9,7 @@ router.register(r'bookusers',BookUserViewSet)
 router.register(r'physical_books_public',PublicPhysicalBookViewSet)
 router.register(r'physical_books',PhysicalBookViewSet)
 router.register(r'physical_books_inventory',PhysicalBookInventoryViewSet)
+router.register(r'bookuser_record',BookUserRecordViewset)
 urlpatterns = [
     path('',include(router.urls))
 ]

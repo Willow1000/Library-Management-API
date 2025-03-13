@@ -31,3 +31,7 @@ class PhysicalBookViewSet(viewsets.ModelViewSet):
 class PhysicalBookInventoryViewSet(viewsets.ModelViewSet):
     queryset = PhysicalBookInventory.objects.all()
     serializer_class = PhysicalBookInventorySerializer    
+
+class BookUserRecordViewset(viewsets.ModelViewSet):
+    queryset = BookUserRecord.objects.all()
+    serializer_class = BookUserRecordSerializer    
