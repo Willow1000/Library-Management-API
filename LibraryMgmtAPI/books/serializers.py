@@ -33,13 +33,6 @@ class BookSerializer(serializers.ModelSerializer ):
     class Meta:
         model = Book
         fields = "__all__"
-        def __init__(self,*args,**kwargs):
-            super().__init__(*args,**kwargs)
-            title = self.data['title']
-            author = self.data['author']
-            self.fields['ebook_available'].default = EBook.objects.filter(title=title,author = author).exists()
-            self.fields['physical_book_available'].default = PhysicalBookPublic.objects.filter(title=title,author = author).exists()
-
         
     
 
@@ -47,9 +40,6 @@ class PhysicalBookSerializer(serializers.ModelSerializer):
     class Meta:
         model=PhysicalBook      
         fields = "__all__"  
-
-    def get_available(self, obj):
-        return PhysicalBook.objects.filter(title=obj.title, author=obj.author).exists()
 
 class PhysicalBookInventorySerializer(serializers.ModelSerializer):
     stock_count = serializers.IntegerField(read_only=True,default = PhysicalBook.objects.all().count())

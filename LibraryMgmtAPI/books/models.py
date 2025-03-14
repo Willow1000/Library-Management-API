@@ -1,9 +1,7 @@
 from django.db import models
-
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import Group, Permission 
 # Create your models here.
-
-
-
 
 class Author(models.Model):
     name = models.CharField(max_length=50)
@@ -65,10 +63,21 @@ class EBook(AbstractBook):
             models.UniqueConstraint(fields = ['title','author'],name='unique_ebook_title_author')
         ]
 
-class BookUser(models.Model):
+class BookUser(AbstractUser):
+    ROLE_CHOICES = (
+        ('admin', 'Admin'),
+        ('editor', 'Editor'),
+        ('viewer', 'Viewer'),
+    )
     name = models.CharField(max_length=200)
+    password = models.CharField(max_length=100)
+    username = models.CharField(max_length=100)
     member_no = models.AutoField(primary_key =True)
-    
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='viewer')
+
+    groups = models.ManyToManyField(Group, related_name="customuser_groups", blank=True)
+    user_permissions = models.ManyToManyField(Permission, related_name="customuser_permissions", blank=True)
+
     def __str__(self):
         return str(self.member_no)
 class PhysicalBookInventory(models.Model):

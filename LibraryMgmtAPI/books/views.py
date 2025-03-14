@@ -2,7 +2,15 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from .models import *
 from .serializers import *
-
+from django.views import View
+from django.shortcuts import render,redirect
+from django.urls import reverse
+from django.contrib.auth import login,logout,aauthenticate
+from .forms import RegistrationForm,LoginForm
+from django.views.generic import TemplateView
+from django.urls import reverse
+from django.contrib.auth import authenticate
+from django.contrib import messages
 # Create your views here.
 class BookViewSet(viewsets.ModelViewSet):
     queryset =Book.objects.all()
@@ -35,3 +43,4 @@ class PhysicalBookInventoryViewSet(viewsets.ModelViewSet):
 class BookUserRecordViewset(viewsets.ModelViewSet):
     queryset = BookUserRecord.objects.all()
     serializer_class = BookUserRecordSerializer    
+
